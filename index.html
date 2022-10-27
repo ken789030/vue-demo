@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMW BackStage</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h1>{{message}}</h1>
+        <table>
+            <tr>
+                <td>單價</td>
+                <td>數量</td>
+                <td>總金額共</td>
+            </tr>
+            <tr>
+                <td>{{price}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price * quantity}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+<!-- Hello World!! -->
+<script>
+    // 3.0 Composition API Style
+    // const {createApp, ref} = Vue;
+   
+    // const vm = createApp({
+    //     setup () {
+    //         const message = ref('Hello Vue3.0!!');
+    //         return {
+    //             message
+    //         }
+    //     }
+    // });
+
+    // vm.mount("#app");
+
+    // 2.x & 3.x 都相容的options-base風格
+    const vm = Vue.createApp({
+        template: `<div>{{name}} 好棒棒</div>`,
+        data () {
+            return {
+                message: 'Hello Vue 2.x&3.0!!',
+                name: '008JS',
+                price: 100,
+                quantity:10
+            }
+        }
+    }).mount("#app");
+
+    vm.$data.name = '30cm';
+
+</script>
+</html>
