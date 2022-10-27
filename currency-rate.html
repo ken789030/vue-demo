@@ -9,30 +9,59 @@
 </head>
 <body>
     <div id="app">
-        <p> 1日幣(JPY)=0.222台幣, 1美金(USD)=32.04, 1人民幣=4.44,  1新加坡幣(SGD)=22.75</p>
-        <div>台幣 <input type="text" v-model="twd" v-on:input="twd2jpy"> </div>
-        <div>日幣 <input type="text" v-model="jpy" v-on:input="jpy2twd"> </div> 
-        <div>美金 <input type="text" v-model="usd" v-on:input="jpy2twd"> </div> 
+        <p> 1日幣(JPY)=0.222台幣, 1美金(USD)=32.04, 1人民幣(CHD)=4.44,  1新加坡幣(SGD)=22.75</p>
+        <div>台幣 <input type="text" v-model="twd" > </div>
+        <div>日幣 <input type="text" v-model="jpy" > </div> 
+        <div>美金 <input type="text" v-model="usd"> </div> 
+        <div>人民幣 <input type="text" v-model="chd"> </div> 
+        <div>新加玻幣 <input type="text" v-model="sgd"> </div> 
     </div>
 </body>
 <script>
-     const vm = Vue.createApp({
+    const usdCurrencyRate = 32.04;
+    const jpyCurrencyRate = 0.222;
+    const chdCurrencyRate = 4.44;
+    const sgdCurrencyRate = 22.75;
+
+    const vm = Vue.createApp({
         data () {
             return {
-                twd: 1000,
-                jpy: 0
+                twd: 1000
             }
         },
-        methods: {
-            twd2jpy () {
-                this.jpy = Number.parseFloat(Number(this.twd) / 0.222).toFixed(3);
+        computed: {
+            jpy: {
+                get() {
+                    return Number.parseFloat(Number(this.twd)/ jpyCurrencyRate).toFixed(3);
+                },
+                set(val) {
+                    this.twd = Number.parseFloat(Number(val) * jpyCurrencyRate).toFixed(3);
+                }
             },
-            jpy2twd () {
-                this.twd = Number.parseFloat(Number(this.jpy) * 0.222).toFixed(3);
+            usd: {
+                get() {
+                    return Number.parseFloat(Number(this.twd)/ usdCurrencyRate).toFixed(3);
+                },
+                set(val) {
+                    this.twd = Number.parseFloat(Number(val) * usdCurrencyRate).toFixed(3);
+                }
+            },
+            chd: {
+                get() {
+                    return Number.parseFloat(Number(this.twd)/ chdCurrencyRate).toFixed(3);
+                },
+                set(val) {
+                    this.twd = Number.parseFloat(Number(val)/ chdCurrencyRate).toFixed(3);
+                }
+            },
+            sgd: {
+                get() {
+                    return Number.parseFloat(Number(this.twd)/ sgdCurrencyRate).toFixed(3);
+                },
+                set(val) {
+                    this.twd = Number.parseFloat(Number(val). sgdCurrencyRate).toFixed(3);
+                }
             }
-        },
-        mounted (){
-            this.twd2jpy();
         }
     }).mount("#app");
 
