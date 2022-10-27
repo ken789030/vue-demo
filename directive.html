@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>directive</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 
+            ex1:v-bind:id 也可以寫成 :id  
+            ex2: v-bind:src 等同 :src
+            ex3: v-bind:disabled 等同 :disabled
+        -->
+        <p v-bind:id="customId">test</p>
+        <button v-bind:disabled="isBtnDisabled">Click Me!</button>
+        <BR>
+        <img v-bind:src="imgSrcUrl" alt="">
+        <BR>
+        <!-- 
+            v-model
+         -->
+        <input v-model="message" type="text" placeholder="edit me">
+        <p>Message is : {{message}}</p>
+        <BR>
+        兩種輸入框的差異<BR>
+        多輸入框的Message is : {{message2}}<BR>
+        <textarea v-model="message2" cols="30" rows="10"></textarea>
+        <textarea  cols="30" rows="10">{{message2}}</textarea>
+        <BR>
+
+        <div>
+            <input type="radio" id="one" value="1" v-model="picked">
+            <label for="one">One</label>
+        </div>
+        <div>
+            <input type="radio" id="two" value="2" v-model="picked">
+            <label for="two">Two</label>
+        </div><BR>
+        <span>Picked : {{picked}}</span>
+        <BR>
+            選取狀態 <button v-on:click="allChecked">All</button>  <button v-on:click="allCancel">Cancel All</button>
+        <br>     
+        <input type="checkbox" id="ken" value="Ken" v-model="checkedNames">
+        <label for="ken">Ken</label>
+        <input type="checkbox" id="tim" value="Tim" v-model="checkedNames">
+        <label for="tim">Tim</label>
+        <input type="checkbox" id="ray" value="Ray" v-model="checkedNames">
+        <label for="ray">Ray</label>
+        <input type="checkbox" id="sean" value="Sean" v-model="checkedNames">    
+        <label for="sean">Sean</label>
+        <br>
+        <p>Checked names: {{checkedNames}}</p>
+        <br>
+        單一選取
+        <input type="checkbox" id="checkbox"  v-model="isChecked">    
+        <label for="checkbox">Status:{{isChecked}}</label>
+
+        <br>
+        選擇鄉鎮市
+        <select v-model="selected">
+            <option disabled value="">請選擇</option>
+            <option >台北市</option>
+            <option >新北市</option>
+            <option >基隆市</option>
+        </select>
+        <br>
+        <p>Selected : {{selected || '未選擇'}}</p>
+        <br>
+        <p>Lazy Input 再離開輸入框時才更新訊息 </p>
+        <input type="text" v-model.lazy="msg" placeholder="Please Input">
+        <p>Message with ".lazy" : {{msg}}</p>
+
+        <br>
+
+        <p> .number input 內容改為數字</p>
+        <input v-model.number="num1"> + <input v-model.number="num2"> = {{sum}}
+    </div>
+</body>
+<script>
+    // 2.x & 3.x 都相容的options-base風格
+    const vm = Vue.createApp({
+        data () {
+            return {
+                customId: 'item-id-1',
+                isBtnDisabled: true,
+                imgSrcUrl:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/%E8%B3%87%E7%94%A2-8-1625029047.png?crop=1.00xw:0.987xh;0,0.00643xh&resize=980:*',
+                message: 'Hello',
+                message2: 'test',
+                picked: 1,
+                checkedNames:[],
+                isChecked: false,
+                selected : '',
+                msg:'lazy input',
+                num1:1,
+                num2:2
+            }
+        },
+        computed: {
+            sum() {
+                return this.num1 + this.num2;
+            }
+        },
+        methods: {
+            allCancel () {
+                this.checkedNames = [];
+            },
+            allChecked () {
+                this.checkedNames = ['Ken', 'Tim', 'Ray', 'Sean']
+            }
+        }
+    }).mount("#app");
+
+
+</script>
+</html>
