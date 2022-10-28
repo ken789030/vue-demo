@@ -8,6 +8,12 @@
     <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
+    <style>
+        .error {
+            border: red solid 1px;
+            color: red;
+        }
+    </style>
     <div id="app">
         <!-- v-bind 
             ex1:v-bind:id 也可以寫成 :id  
@@ -77,6 +83,31 @@
 
         <p> .number input 內容改為數字</p>
         <input v-model.number="num1"> + <input v-model.number="num2"> = {{sum}}
+
+        <br>
+        <p>.trim 去除前後的input空白</p>
+        <input v-model.trim="msg2" placeholder="前後空白會被消除">
+        <p>Message with ".trim":{{msg2}}這裡</p>
+
+        <br>
+        Edit: <input v-model="text">
+        <p>使用v-text 來做控制而非 {/{/}/}</p>
+        <p v-text="text"></p>
+        <br>
+        <p>使用v-html 來顯示html的</p>
+        <div v-html="text"></div>
+        <br>
+        <p>使用v-once 來顯示原始值，後續變動不更新</p>
+        <div v-once>{{text}}</div>
+        <br>
+        <p v-pre>使用v-pre 不顯示模板{{text}}</p>
+        <br>
+        <p v-pre> v-bind:class 單個  若需要多個的話，使用逗號分隔</p>
+        <input type="text" 
+            v-model="msg3" 
+            v-bind:class="{'error' : msg3.length >10 }"
+            placeholder="請問超過十個字"
+            >
     </div>
 </body>
 <script>
@@ -95,7 +126,10 @@
                 selected : '',
                 msg:'lazy input',
                 num1:1,
-                num2:2
+                num2:2,
+                msg2:"前後空白",
+                text: '<h1>測試H1 tag Hello World</h1>',
+                msg3:''
             }
         },
         computed: {
